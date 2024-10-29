@@ -43,5 +43,5 @@ export default defineConfig({
     // })],
 
     plugins: [svgr(), react()],
-    base: 'https://IsaacTellezs.github.io/tradenation'
+    base: 'https://isaactellezs.github.io/tradenation'
 });
