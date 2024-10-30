@@ -43,5 +43,5 @@ export default defineConfig({
     // })],
 
     plugins: [svgr(), react()],
-    base: process.env.NODE_ENV === 'production' ? 'https://isaactellezs.github.io/tradenation' : '/',
+
 });
