@@ -15,7 +15,7 @@ const Menuitems = [
     id: uniqueId(),
     title: 'Escritorio',
     icon: IconLayoutDashboard,
-    href: '/dashboard',
+    href: '/',
   },
   {
     navlabel: true,
@@ -41,7 +41,7 @@ const Menuitems = [
     id: uniqueId(),
     title: 'Perfil',
     icon: IconUserPlus,
-    href: '#',
+    href: '/profile',
   },
   {
     id: uniqueId(),
