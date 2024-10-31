@@ -18,6 +18,9 @@ const Error = Loadable(lazy(() => import('../views/authentication/Error')));
 const Register = Loadable(lazy(() => import('../views/authentication/Register')));
 const Login = Loadable(lazy(() => import('../views/authentication/Login')));
 const Profile = Loadable(lazy(() => import('../views/profile/profile')));
+const TradePage = Loadable(lazy(() => import('../views/trading/TradePage')));
+const SuccessPage  = Loadable(lazy(() => import('../views/Transactions/Success')));
+
 
 const Router = [
   {
@@ -26,12 +29,14 @@ const Router = [
     children: [
       { path: '/', exact: true, element: <Dashboard /> },
       { path: '/profile', exact: true, element: <Profile/> },
-      { path: '/sample-page', exact: true, element: <SamplePage /> },
+      { path: 'trading/sample-page', exact: true, element: <SamplePage /> },
+      { path: '/trade-page', exact: true, element: <TradePage /> },
       { path: '/icons', exact: true, element: <Icons /> },
       { path: '/ui/typography', exact: true, element: <TypographyPage /> },
       { path: '/ui/trading', exact: true, element: <TradingPage /> },
       { path: '/ui/wallet', exact: true, element: <WalletPage /> },
       { path: '/ui/shadow', exact: true, element: <Shadow /> },
+      { path: '/success', exact: true, element: <SuccessPage /> },
       { path: '*', element: <Navigate to="/auth/404" /> },
     ],
   },

@@ -1,13 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { IconWallet } from '@tabler/icons-react';
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe('pk_test_51QFlUzJBZRPS6dKMorHduY0qM7JGeXKqwHEHASfpTNDQXsk3e1QxU62qIKGOnNCrEWbIsVbsELo8aAieN93tpEMU00qM9OMXTj'); // Reemplaza con tu clave pública
 
 const Wallet = () => {
-  const balance = 100; // Cambia este valor según tus necesidades
+  const [balance, setBalance] = useState(0); // Estado para el saldo inicial
 
-  const handleAddFunds = () => {
-    // Lógica para agregar fondos a la billetera
-    console.log('Añadir fondos a la billetera');
+  const handleAddFunds = async () => {
+    const stripe = await stripePromise;
+
+    // Lógica para crear un pago en tu backend
+    const response = await fetch('http://localhost:5000/create-checkout-session', { // Asegúrate de que la URL sea correcta
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ amount: 5000 }), // Cantidad en centavos ($50.00)
+    });
+
+    if (response.ok) {
+      const session = await response.json();
+
+      // Redirigir a Stripe Checkout
+      const { error } = await stripe.redirectToCheckout({ sessionId: session.id });
+
+      if (error) {
+        console.error('Error al redirigir a Checkout:', error);
+      }
+      
+    } else {
+      console.error('Error al crear la sesión de pago');
+    }
+  };
+
+  const handlePaymentSuccess = (newFunds) => {
+    // Esta función simula la actualización del saldo
+    setBalance((prevBalance) => prevBalance + newFunds); // Aumentar el saldo en la cantidad que se desee
   };
 
   return (
@@ -41,6 +71,18 @@ const Wallet = () => {
         }}
       >
         Añadir Fondos
+      </Button>
+
+      {/* Simulador de éxito de pago para pruebas */}
+      <Button 
+        variant="outlined" 
+        color="secondary" 
+        onClick={() => handlePaymentSuccess(50)} // Aumentar el saldo en $50.00 para pruebas
+        sx={{
+          marginTop: '16px',
+        }}
+      >
+        Simular Pago Exitoso
       </Button>
     </Box>
   );

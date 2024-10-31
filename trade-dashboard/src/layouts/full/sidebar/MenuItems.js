@@ -1,6 +1,8 @@
 import {
   IconAperture, IconCopy, IconLayoutDashboard, IconLogin, IconMoodHappy, IconTypography, IconUserPlus, IconGraph,
-  IconWallet
+  IconWallet,
+  IconMoneybag,
+  IconZoomMoney
 } from '@tabler/icons-react';
 
 import { uniqueId } from 'lodash';
@@ -49,16 +51,16 @@ const Menuitems = [
     icon: IconLogin,
     href: '#',
   },
-  // {
-  //   navlabel: true,
-  //   subheader: 'Extra',
-  // },
-  // {
-  //   id: uniqueId(),
-  //   title: 'Icons',
-  //   icon: IconMoodHappy,
-  //   href: '/icons',
-  // },
+  {
+    navlabel: true,
+    subheader: 'Trade',
+  },
+  {
+    id: uniqueId(),
+    title: 'Trade',
+    icon: IconZoomMoney,
+    href: '/trade-page',
+  },
   // {
   //   id: uniqueId(),
   //   title: 'Sample Page',
