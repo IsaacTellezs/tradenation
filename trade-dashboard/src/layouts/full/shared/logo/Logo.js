@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { ReactComponent as LogoDark1 } from "src/assets/images/logos/dark1-logo.svg";
+import { ReactComponent as LogoDark1 } from "src/assets/images/logos/logo-trade.svg";
 import { styled } from "@mui/material";
 
 const LinkStyled = styled(Link)(() => ({
   height: "70px",
-  width: "180px",
+  width: "150px",
   overflow: "hidden",
   display: "block",
 }));

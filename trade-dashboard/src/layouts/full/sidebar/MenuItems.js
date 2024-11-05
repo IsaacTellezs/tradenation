@@ -49,7 +49,7 @@ const Menuitems = [
     id: uniqueId(),
     title: 'Cerrar sesión',
     icon: IconLogin,
-    href: '#',
+    href: '/auth/login',
   },
   {
     navlabel: true,
