@@ -1,4 +1,6 @@
-[[redirects]]
-  from = "/*"
-  to = "/"
-  status = 200
+[build]
+  node_version = "18"
+  publish = "trade-dashboard/dist" # Asegúrate de que la ruta sea correcta
+
+[build.environment]
+  NODE_VERSION = "18"
