@@ -1,6 +1,7 @@
 import React, { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
+import ProtectedRoute from './ProtectedRoute';
 
 /* ***Layouts**** */
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
@@ -25,7 +26,11 @@ const SuccessPage  = Loadable(lazy(() => import('../views/Transactions/Success')
 const Router = [
   {
     path: '/',
-    element: <FullLayout />,
+    element:(
+    <ProtectedRoute>
+      <FullLayout />
+    </ProtectedRoute>
+    ),
     children: [
       { path: '/', exact: true, element: <Dashboard /> },
       { path: '/profile', exact: true, element: <Profile/> },

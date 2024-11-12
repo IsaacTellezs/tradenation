@@ -45,12 +45,12 @@ const Menuitems = [
     icon: IconUserPlus,
     href: '/profile',
   },
-  {
-    id: uniqueId(),
-    title: 'Cerrar sesión',
-    icon: IconLogin,
-    href: '/auth/login',
-  },
+  // {
+  //   id: uniqueId(),
+  //   title: 'Cerrar sesión',
+  //   icon: IconLogin,
+  //   href: '/auth/login',
+  // },
   {
     navlabel: true,
     subheader: 'Trade',

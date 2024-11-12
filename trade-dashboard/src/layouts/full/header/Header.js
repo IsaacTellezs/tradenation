@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 // components
 import Profile from './Profile';
 import { IconBellRinging, IconMenu } from '@tabler/icons-react';
+import LoginButton from '../../../components/login/LoginButton';
 
 const Header = (props) => {
 
@@ -66,6 +67,7 @@ const Header = (props) => {
           <Button variant="contained" color="primary"  target="_blank" href="">
             ir a web trader
           </Button>
+          {/* <LoginButton/> */}
           <Profile />
         </Stack>
       </ToolbarStyled>

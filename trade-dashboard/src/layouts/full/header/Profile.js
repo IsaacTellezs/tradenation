@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 import {
   Avatar,
   Box,
@@ -14,6 +15,7 @@ import {
 import { IconListCheck, IconMail, IconUser } from '@tabler/icons-react';
 
 import ProfileImg from 'src/assets/images/profile/user-1.jpg';
+import LogoutButton from '../../../components/login/LogoutButton';
 
 const Profile = () => {
   const [anchorEl2, setAnchorEl2] = useState(null);
@@ -23,6 +25,9 @@ const Profile = () => {
   const handleClose2 = () => {
     setAnchorEl2(null);
   };
+
+  const {user} = useAuth0();
+  
 
   return (
     <Box>
@@ -40,7 +45,7 @@ const Profile = () => {
         onClick={handleClick2}
       >
         <Avatar
-          src={ProfileImg}
+          src={user?.picture || ProfileImg}
           alt={ProfileImg}
           sx={{
             width: 35,
@@ -65,11 +70,11 @@ const Profile = () => {
           },
         }}
       >
-        <MenuItem>
-          <ListItemIcon>
+        <MenuItem component={Link} to="/profile">
+          <ListItemIcon >
             <IconUser width={20} />
           </ListItemIcon>
-          <ListItemText>Mi perfil</ListItemText>
+          <ListItemText  >Mi perfil</ListItemText>
         </MenuItem>
         <MenuItem>
           <ListItemIcon>
@@ -84,9 +89,7 @@ const Profile = () => {
           <ListItemText>Mis movimientos</ListItemText>
         </MenuItem>
         <Box mt={1} py={1} px={2}>
-          <Button to="#" variant="outlined" color="primary" component={Link} fullWidth>
-            Cerrar sesión
-          </Button>
+          <LogoutButton/>
         </Box>
       </Menu>
     </Box>
