@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth0 } from '@auth0/auth0-react';
 import {
   Avatar,
   Box,
@@ -17,6 +16,7 @@ import { IconListCheck, IconMail, IconUser } from '@tabler/icons-react';
 import ProfileImg from 'src/assets/images/profile/user-1.jpg';
 import LogoutButton from '../../../components/login/LogoutButton';
 
+
 const Profile = () => {
   const [anchorEl2, setAnchorEl2] = useState(null);
   const handleClick2 = (event) => {
@@ -26,7 +26,7 @@ const Profile = () => {
     setAnchorEl2(null);
   };
 
-  const {user} = useAuth0();
+
   
 
   return (
@@ -45,7 +45,7 @@ const Profile = () => {
         onClick={handleClick2}
       >
         <Avatar
-          src={user?.picture || ProfileImg}
+          src={ProfileImg}
           alt={ProfileImg}
           sx={{
             width: 35,

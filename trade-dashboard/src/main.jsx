@@ -7,7 +7,8 @@ import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
-import {Auth0Provider} from "@auth0/auth0-react"
+import { AuthProvider } from './context/AuthContext';
+
 
 
  const domain = import.meta.env.VITE_AUTH0_DOMAIN
@@ -17,14 +18,9 @@ import {Auth0Provider} from "@auth0/auth0-react"
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Suspense>
     <BrowserRouter>
-      <Auth0Provider 
-      domain={domain} 
-      clientId={clientId} 
-      authorizationParams={{
-      redirect_uri: window.location.origin
-    }} >
+      <AuthProvider>
         <App />
-      </Auth0Provider>
+      </AuthProvider>
     </BrowserRouter>
   </Suspense>,
 )

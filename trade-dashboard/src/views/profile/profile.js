@@ -1,12 +1,14 @@
 import React from 'react';
 import { Grid, Box, Typography, TextField, Paper, Button } from '@mui/material';
 import PageContainer from 'src/components/container/PageContainer';
-import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth } from '../../context/AuthContext';
 
 const Profile = () => {
 
-    const {user} = useAuth0();
-    console.log(user);
+    const {user} = useAuth();
+    const formattedDate = new Date(user.created_at).toISOString().split('T')[0];
+
+
     return (
         <PageContainer>
             <Box sx={{ padding: 4 }}>
@@ -26,7 +28,7 @@ const Profile = () => {
                                 label="Nombre de Usuario"
                                 variant="outlined"
                                 margin="normal"
-                                value={user.nickname || ''}
+                                value={user.name}
                             />
                             <TextField
                                 fullWidth
@@ -35,7 +37,8 @@ const Profile = () => {
                                 margin="normal"
                                 type="date"
                                 InputLabelProps={{ shrink: true }}
-                                value={new Date(user.updated_at).toISOString().split('T')[0]}
+                                value={formattedDate}
+                                
                             />
                         </Paper>
                     </Grid>
@@ -51,14 +54,14 @@ const Profile = () => {
                                 label="Nombre Completo"
                                 variant="outlined"
                                 margin="normal"
-                                value={user.name || ''}
+                                value={''}
                             />
                             <TextField
                                 fullWidth
                                 label="Correo Electrónico"
                                 variant="outlined"
                                 margin="normal"
-                                value={user.email || ''}
+                                value={user.email}
                             />
                             <TextField
                                 fullWidth

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Box,
     Typography,
@@ -8,11 +8,29 @@ import {
     Stack,
     Checkbox
 } from '@mui/material';
-import { Link } from 'react-router-dom';
-
 import CustomTextField from '../../../components/forms/theme-elements/CustomTextField';
+import { useAuth } from '../../../context/AuthContext';
+import { useNavigate } from 'react-router';
+import { useForm } from 'react-hook-form';
 
-const AuthLogin = ({ title, subtitle, subtext }) => (
+
+
+const AuthLogin = ({ title, subtitle, subtext }) => { 
+    
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const {signin, errors: signinErrors, isAutenticated} = useAuth();
+    const navigate = useNavigate();
+
+    const onSubmit = handleSubmit (data => {
+        signin(data);
+    })
+
+    useEffect(() => {
+        if(isAutenticated) navigate("/");
+    }, [isAutenticated]);
+
+
+    return(
     <>
         {title ? (
             <Typography fontWeight="700" variant="h2" mb={1}>
@@ -22,52 +40,47 @@ const AuthLogin = ({ title, subtitle, subtext }) => (
 
         {subtext}
 
-        <Stack>
-            <Box>
-                <Typography variant="subtitle1"
-                    fontWeight={600} component="label" htmlFor='username' mb="5px">Nombre de usuario</Typography>
-                <CustomTextField id="username" variant="outlined" fullWidth />
-            </Box>
-            <Box mt="25px">
-                <Typography variant="subtitle1"
-                    fontWeight={600} component="label" htmlFor='password' mb="5px" >Contraseña</Typography>
-                <CustomTextField id="password" type="password" variant="outlined" fullWidth />
-            </Box>
-            <Stack justifyContent="space-between" direction="row" alignItems="center" my={2}>
-                <FormGroup>
-                    <FormControlLabel
-                        control={<Checkbox defaultChecked />}
-                        label="Recordar este dispositivo"
+        
+        <Box component="form" onSubmit={onSubmit}>
+                {
+                    signinErrors.map((error, i) => (
+                        <Typography 
+                        color="error" key={i}>
+                            {error}
+                        </Typography>
+                    ))
+                }
+                <Stack mb={3}>
+                    <Typography component="label" htmlFor="email" sx={{ mt: "25px", mb: "5px" }}>
+                        Email
+                    </Typography>
+                    <CustomTextField
+                        id="email"
+                        variant="outlined"
+                        fullWidth
+                        {...register("email", { required: "El email es obligatorio" })}
                     />
-                </FormGroup>
-                <Typography
-                    component={Link}
-                    to="/"
-                    fontWeight="500"
-                    sx={{
-                        textDecoration: 'none',
-                        color: 'primary.main',
-                    }}
-                >
-                    ¿Olvidaste tu contraseña?
-                </Typography>
-            </Stack>
-        </Stack>
-        <Box>
-            <Button
-                color="primary"
-                variant="contained"
-                size="large"
-                fullWidth
-                component={Link}
-                to="/"
-                type="submit"
-            >
-                Iniciar sesión
-            </Button>
-        </Box>
+                    {errors.email && <Typography color="error">{errors.email.message}</Typography>}
+
+                    <Typography component="label" htmlFor="password" sx={{ mt: "25px", mb: "5px" }}>
+                        Password
+                    </Typography>
+                    <CustomTextField
+                        id="password"
+                        variant="outlined"
+                        fullWidth
+                        {...register("password_hash", { required: "La contraseña es obligatoria" })}
+                    />
+                    {errors.password && (
+                        <Typography color="error">{errors.password.message}</Typography>
+                    )}
+                </Stack>
+                <Button type="submit" color="primary" variant="contained" size="large" fullWidth>
+                    Iniciar sesión
+                </Button>
+            </Box>
         {subtitle}
     </>
-);
+)};
 
 export default AuthLogin;

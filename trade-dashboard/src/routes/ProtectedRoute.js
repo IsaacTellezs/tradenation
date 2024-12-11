@@ -1,33 +1,18 @@
-// ProtectedRoute.js
-import { useAuth0 } from '@auth0/auth0-react';
-import { Navigate } from 'react-router-dom';
 import { Box, CircularProgress } from '@mui/material';
+import { useAuth } from '../context/AuthContext';
+import { Navigate, Outlet } from 'react-router';
 
-const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+function ProtectedRoute() {
+const {loading, isAutenticated} = useAuth();
 
-  
- 
- if (isLoading) {
-  return (
-    <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      minHeight="100vh"
-    >
-      <CircularProgress />
-    </Box>
-  );
-}
+if(loading) return <h1>Loading...</h1>
 
-  if (!isAuthenticated) {
-    loginWithRedirect(); 
-    return null; 
-  }
+if(!loading && !isAutenticated) return <Navigate to='/auth/login' replace ></Navigate>
+return(
+  <Outlet/>
+)
 
-  
-  return children;
+
 };
 
 export default ProtectedRoute;
