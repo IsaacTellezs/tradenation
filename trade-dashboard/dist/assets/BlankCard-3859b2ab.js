@@ -1,0 +1,1 @@
+import{j as p}from"./index-0cddd827.js";import{P as s}from"./index-0b44ef10.js";import{C as t}from"./Card-7b414303.js";const a=({children:r,className:o})=>p.jsx(t,{sx:{p:0,position:"relative"},className:o,elevation:9,variant:void 0,children:r});a.propTypes={children:s.node};export{a as B};
