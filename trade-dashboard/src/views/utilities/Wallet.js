@@ -1,11 +1,12 @@
 import React from 'react';
 import { Paper, Box, Grid } from '@mui/material';
 import PageContainer from 'src/components/container/PageContainer';
-import Wallet from '../dashboard/components/wallet';
+import Wallet from '../dashboard/components/Wallet';
 import RecentTransactions from '../dashboard/components/RecentTransactions';
 import QRCodeDisplay from '../dashboard/components/QrCodeDisplay';
 import Withdraw from '../dashboard/components/Withdraw';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import Data from '../dashboard/components/Data';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body1,

@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { Card, Typography } from '@mui/material';
-import { IconCash } from '@tabler/icons-react';
+import { IconUserCircle } from '@tabler/icons-react';
 import { useNavigate } from 'react-router';
 
-const Withdraw = () => {
-
+const Profile = () => {
   const navigate = useNavigate();
 
   return ( 
     <Card
-      onClick={() => navigate("/ui/Wallet")}
+      onClick={() => navigate("/profile")}
       sx={{
         maxWidth: 300,
         margin: "auto",
@@ -26,15 +25,15 @@ const Withdraw = () => {
         },
       }}
     >
-      <IconCash size={50} style={{ marginBottom: 8 }}/>
+      <IconUserCircle size={50} style={{ marginBottom: 8 }}/>
       <Typography variant="h6" component="div" sx={{ marginBottom: 1 }}>
-        Withdrawal
+        Profile
       </Typography>
       <Typography variant="body2" sx={{ marginBottom: 2 }}>
-        Solicita retiro de fondos.
+        Administra tu información.
       </Typography>
     </Card>
   );
 };
 
-export default Withdraw;
+export default Profile;

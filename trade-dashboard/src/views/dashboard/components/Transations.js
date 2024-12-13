@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import { Card, Typography } from '@mui/material';
-import { IconCash } from '@tabler/icons-react';
-import { useNavigate } from 'react-router';
+import React, { useState } from "react";
+import { Card, Typography } from "@mui/material";
+import { IconArrowsLeftRight } from "@tabler/icons-react";
+import { useNavigate } from "react-router-dom";
 
-const Withdraw = () => {
+const Transactions = () => {
 
   const navigate = useNavigate();
-
-  return ( 
+  return (
     <Card
-      onClick={() => navigate("/ui/Wallet")}
+      onClick={() => navigate("/ui/wallet")}
       sx={{
         maxWidth: 300,
         margin: "auto",
@@ -21,20 +20,20 @@ const Withdraw = () => {
         textAlign: "center",
         cursor: "pointer",
         transition: "transform 0.2s",
-        '&:hover': {
+        "&:hover": {
           transform: "scale(1.05)",
         },
       }}
     >
-      <IconCash size={50} style={{ marginBottom: 8 }}/>
+      <IconArrowsLeftRight size={50} style={{ marginBottom: 8 }} />
       <Typography variant="h6" component="div" sx={{ marginBottom: 1 }}>
-        Withdrawal
+        Transactions
       </Typography>
       <Typography variant="body2" sx={{ marginBottom: 2 }}>
-        Solicita retiro de fondos.
+        Revisa todas tus movimientos.
       </Typography>
     </Card>
   );
 };
 
-export default Withdraw;
+export default Transactions;

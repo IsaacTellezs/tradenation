@@ -8,18 +8,21 @@ import {
   MenuItem,
   TextField,
   Typography,
-  Box
+  Box,
+  Card,
+  CardContent,
 } from "@mui/material";
+import { SvgIcon } from "@mui/material";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { useAuth } from "../../../context/AuthContext";
 
 const Wallet = () => {
-  const [open, setOpen] = useState(false); 
-  const [paymentType, setPaymentType] = useState(""); 
-  const [bank, setBank] = useState(""); 
+  const [open, setOpen] = useState(false);
+  const [paymentType, setPaymentType] = useState("");
+  const [bank, setBank] = useState("");
   const [cashOption, setCashOption] = useState("");
-  const {user} = useAuth();
+  const { user } = useAuth();
   const [pdfPreviewUrl, setPdfPreviewUrl] = useState(null);
   const [formData, setFormData] = useState({
     currency: "MXN",
@@ -28,8 +31,7 @@ const Wallet = () => {
     lastName: "",
     documentId: "",
   });
-  const [pdfBlob, setPdfBlob] = useState(null); 
-  
+  const [pdfBlob, setPdfBlob] = useState(null);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -70,15 +72,21 @@ const Wallet = () => {
     const doc = new jsPDF();
     doc.setFontSize(18);
     doc.text("Ficha de Pago", 105, 15, { align: "center" });
-  
+
     // Información como tabla
     autoTable(doc, {
       startY: 25,
       head: [["Campo", "Información"]],
       body: [
         ["Banco", bank],
-        ["Dirección del banco", "AV. PASEO DE LA REFORMA 505 COLONIA JUAREZ ALCALDIA CUAUHTEMOC CP 06600 CDMX."],
-        ["Beneficiario", "PROCESADORA DE SERVICIOS ELECTRONICOS U SOLUTIONS SA DE CV"],
+        [
+          "Dirección del banco",
+          "AV. PASEO DE LA REFORMA 505 COLONIA JUAREZ ALCALDIA CUAUHTEMOC CP 06600 CDMX.",
+        ],
+        [
+          "Beneficiario",
+          "PROCESADORA DE SERVICIOS ELECTRONICOS U SOLUTIONS SA DE CV",
+        ],
         ["CLAVE USD", "012180001173606141"],
         ["SWIFT", "BCRMMXMMXXX"],
         ["Generado por", "Maria Aldana"],
@@ -95,7 +103,7 @@ const Wallet = () => {
       headStyles: { fillColor: [0, 119, 182] }, // Encabezado azul
       alternateRowStyles: { fillColor: [240, 240, 240] }, // Filas alternas
     });
-  
+
     const pdfBlob = doc.output("blob");
     const pdfUrl = URL.createObjectURL(pdfBlob);
     setPdfPreviewUrl(pdfUrl);
@@ -113,17 +121,34 @@ const Wallet = () => {
 
   return (
     <div>
-      <Box  sx={{
-        display: "flex",
-        justifyContent: "center",  
-        alignItems: "center",      
-      }}
+      <Card
+        onClick={handleOpen}
+        sx={{
+          maxWidth: 300,
+          margin: "auto",
+          boxShadow: 3,
+          backgroundColor: "#1e1e2f",
+          color: "white",
+          borderRadius: 2,
+          padding: 2,
+          textAlign: "center",
+          cursor: "pointer",
+          transition: "transform 0.2s",
+          "&:hover": {
+            transform: "scale(1.05)",
+          },
+        }}
       >
-        <Button onClick={handleOpen} variant="contained" color="primary">
-          Depositar fondos
-        </Button>
-      </Box>
-
+        <SvgIcon sx={{ fontSize: 50, marginBottom: 1 }}>
+          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+        </SvgIcon>
+        <Typography variant="h6" component="div" sx={{ marginBottom: 1 }}>
+          Deposit Funds
+        </Typography>
+        <Typography variant="body2" sx={{ marginBottom: 2 }}>
+          Agrega fondos a tu cuenta.
+        </Typography>
+      </Card>
 
       <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
         <DialogTitle>Selecciona el tipo de pago</DialogTitle>
@@ -141,9 +166,8 @@ const Wallet = () => {
           </TextField>
 
           {paymentType === "efectivo" && (
-
             <>
-             <TextField
+              <TextField
                 label="Banco"
                 select
                 fullWidth
@@ -214,7 +238,13 @@ const Wallet = () => {
                 color="primary"
                 fullWidth
                 style={{ marginTop: "16px" }}
-                disabled={!bank || !formData.amount || !formData.firstName || !formData.lastName || !formData.documentId}
+                disabled={
+                  !bank ||
+                  !formData.amount ||
+                  !formData.firstName ||
+                  !formData.lastName ||
+                  !formData.documentId
+                }
               >
                 Generar Ficha de Pago
               </Button>
@@ -242,45 +272,43 @@ const Wallet = () => {
           )}
 
           {paymentType === "debitoCredito" && (
-
             <>
-            <TextField
-              label="Opción de Depósito"
-              select
-              fullWidth
-              margin="normal"
-              value={cashOption}
-              onChange={handleCashOptionChange}
-            >
-              <MenuItem value="opcion1">Antares 1</MenuItem>
-              <MenuItem value="opcion2">Antares 2</MenuItem>
-              <MenuItem value="opcion3">BAC Credomatic</MenuItem>
-            </TextField>
+              <TextField
+                label="Opción de Depósito"
+                select
+                fullWidth
+                margin="normal"
+                value={cashOption}
+                onChange={handleCashOptionChange}
+              >
+                <MenuItem value="opcion1">Antares 1</MenuItem>
+                <MenuItem value="opcion2">Antares 2</MenuItem>
+                <MenuItem value="opcion3">BAC Credomatic</MenuItem>
+              </TextField>
 
-
-
-           <Box
-             sx={{
-               backgroundColor: "#e3f2fd",
-               padding: 2,
-               borderRadius: 2,
-               marginTop: 1,
-               boxShadow: 1,
-             }}
-           >
-              <Typography
+              <Box
+                sx={{
+                  backgroundColor: "#e3f2fd",
+                  padding: 2,
+                  borderRadius: 2,
+                  marginTop: 1,
+                  boxShadow: 1,
+                }}
+              >
+                <Typography
                   variant="body2"
-                    sx={{
-                      fontWeight: "bold",
-                      fontSize: "0.75rem",
-                      marginBottom: 0.8,
-                      color: "rgba(0, 0, 0, 0.75)",
-                    }}
+                  sx={{
+                    fontWeight: "bold",
+                    fontSize: "0.75rem",
+                    marginBottom: 0.8,
+                    color: "rgba(0, 0, 0, 0.75)",
+                  }}
                 >
-                  Al dar clic en pagar se abrirá una pestaña nueva. Es importante indicar
-                  los siguientes datos en el formulario de pago:
+                  Al dar clic en pagar se abrirá una pestaña nueva. Es
+                  importante indicar los siguientes datos en el formulario de
+                  pago:
                 </Typography>
-                
+
                 <Typography
                   variant="body2"
                   sx={{
@@ -303,27 +331,29 @@ const Wallet = () => {
                 >
                   Email: {user.email}
                 </Typography>
-            </Box>
+              </Box>
 
-            <Button
-              onClick={() => {
-                const urls = {
-                  opcion1: "https://clickpago.merchantprocess.net/clientv2/client/antares",
-                  opcion2: "https://pagos.antares.com.pa/psp/bso/pay",
-                  opcion3: "https://checkout.baccredomatic.com/NzQ5MWY2ZWQ4N2YuNDg5NjY1ODIwOTExNjU4MjU0MzY2",
-                };
-                handleRedirect(urls[cashOption] || "/efectivo"); // Redirige según la opción seleccionada
-              }}
-              variant="contained"
-              color="primary"
-              fullWidth
-              style={{ marginTop: "16px" }}
-              disabled={!cashOption} // Desactiva si no se selecciona una opción
-            >
-              Continuar
-            </Button>
+              <Button
+                onClick={() => {
+                  const urls = {
+                    opcion1:
+                      "https://clickpago.merchantprocess.net/clientv2/client/antares",
+                    opcion2: "https://pagos.antares.com.pa/psp/bso/pay",
+                    opcion3:
+                      "https://checkout.baccredomatic.com/NzQ5MWY2ZWQ4N2YuNDg5NjY1ODIwOTExNjU4MjU0MzY2",
+                  };
+                  handleRedirect(urls[cashOption] || "/efectivo"); // Redirige según la opción seleccionada
+                }}
+                variant="contained"
+                color="primary"
+                fullWidth
+                style={{ marginTop: "16px" }}
+                disabled={!cashOption} // Desactiva si no se selecciona una opción
+              >
+                Continuar
+              </Button>
             </>
-          )}  
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="secondary">
