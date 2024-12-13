@@ -11,7 +11,7 @@ import { IconSettings } from "@tabler/icons-react";
 import { useAuth } from "../../../context/AuthContext";
 const Welcome = () => {
   const { user } = useAuth();
-
+  const Favatar = user?.name?.charAt(0) || '';
   return (
     <Card
       sx={{
@@ -34,14 +34,14 @@ const Welcome = () => {
                 marginRight: 2,
               }}
             >
-              M
+              {Favatar}
             </Avatar>
             <Box>
               <Typography variant="h5" fontWeight="bold">
                 ¡Bienvenido!
               </Typography>
               <Typography variant="subtitle1" fontSize="1rem">
-                {/* {user.name } */}
+                {user.name }
               </Typography>
               <Typography
                 variant="caption"
