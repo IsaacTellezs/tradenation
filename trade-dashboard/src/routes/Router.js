@@ -21,6 +21,7 @@ const Login = Loadable(lazy(() => import('../views/authentication/Login')));
 const Profile = Loadable(lazy(() => import('../views/profile/profile')));
 const TradePage = Loadable(lazy(() => import('../views/trading/TradePage')));
 const SuccessPage = Loadable(lazy(() => import('../views/Transactions/Success')));
+const TransactionsPage = Loadable(lazy(() => import('../views/Transactions/TransaccionPage')));
 
 const Router = () => {
   return (
@@ -47,6 +48,7 @@ const Router = () => {
           <Route path="ui/wallet" element={<WalletPage />} />
           <Route path="ui/shadow" element={<Shadow />} />
           <Route path="success" element={<SuccessPage />} />
+          <Route path="admin/transactions" element={<TransactionsPage />} />
         </Route>
 
         {/* Ruta comodín para manejar rutas no encontradas dentro de FullLayout */}
