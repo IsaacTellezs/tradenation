@@ -48,11 +48,12 @@ const Router = () => {
           <Route path="ui/wallet" element={<WalletPage />} />
           <Route path="ui/shadow" element={<Shadow />} />
           <Route path="success" element={<SuccessPage />} />
-          <Route path="admin/transactions" element={<TransactionsPage />} />
+          
         </Route>
 
         {/* Ruta comodín para manejar rutas no encontradas dentro de FullLayout */}
         <Route path="*" element={<Navigate to="/auth/404" />} />
+        <Route path="admin/transactions" element={<TransactionsPage />} />
       </Route>
     </Routes>
   );
